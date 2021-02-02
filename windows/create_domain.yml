@@ -1,0 +1,4 @@
+- name: Create Domain
+  hosts: DC
+  roles:
+    - windows-ad-controller
