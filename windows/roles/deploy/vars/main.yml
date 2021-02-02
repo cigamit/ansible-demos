@@ -1,0 +1,10 @@
+vm_sizes:
+  Small:
+    cpu: 1
+    mem: 2048
+  Medium:
+    cpu: 2
+    mem: 4096
+  Large:
+    cpu: 4
+    mem: 8192
