@@ -3,11 +3,11 @@
     adapter_names: "*"
     ipv4_addresses:
     - "{{ dns_server1 }}"
-  register: joined
+#  register: joined
 
-- pause:
-    minutes: 1
-  when: joined.changed
+#- pause:
+#    minutes: 1
+#  when: joined.changed
 
 - name: Add Windows Server to the Domain
   win_domain_membership:

@@ -3,8 +3,8 @@
     name: Web-Server
     state: present
     restart: True
-    #include_sub_features: True
-    #include_management_tools: True
+    include_sub_features: True
+    include_management_tools: True
 
 - name: Generate Self Sign CSR Request
   raw: New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname {{ inventory_hostname }}.{{ dns_domain_name }} | select Thumbprint | ft -HideTableHeaders
@@ -13,10 +13,10 @@
 - debug:
     msg: "{{ csr.stdout | trim  }}"
 
-- name: Remove Default Web Site
-  win_iis_website:
-    name: "Default Web Site"
-    state: absent
+#- name: Remove Default Web Site
+#  win_iis_website:
+#    name: "Default Web Site"
+#    state: absent
 
 - name: Create directory structure
   win_file:
@@ -29,7 +29,7 @@
 
 - name: Create Demo IIS site
   win_iis_website:
-    name: Demo
+    name: Default Web Site
     state: started
     physical_path: c:\sites\Demo
     parameters: logfile.directory:c:\sites\logs
@@ -42,16 +42,16 @@
 
 - name: Add HTTPS Webbinding to IIS
   win_iis_webbinding:
-    name: Demo
+    name: Default Web Site
     protocol: https
     certificate_hash: "{{ csr.stdout | trim }}"
     state: present
 
-- name: Remove the HTTP binding on port 80
-  win_iis_webbinding:
-    name: Demo
-    port: 80
-    state: absent
+#- name: Remove the HTTP binding on port 80
+#  win_iis_webbinding:
+#    name: Demo
+#    port: 80
+#    state: absent
 
 - name: Create directory structure
   win_template:
