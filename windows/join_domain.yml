@@ -1,0 +1,4 @@
+- name: Join server to the domain
+  hosts: all
+  roles:
+    - join-domain

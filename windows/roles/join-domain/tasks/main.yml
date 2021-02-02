@@ -1,0 +1,22 @@
+- win_dns_client:
+    adapter_names: "*"
+    ipv4_addresses:
+    - "{{ dns_server1 }}"
+  register: joined
+
+- pause:
+    minutes: 1
+  when: joined.changed
+
+- name: Add Windows Server to the Domain
+  win_domain_membership:
+    dns_domain_name: {{ dns_domain_name }}
+    domain_admin_user: lab\admin
+    domain_admin_password: "{{ ansible_password }}"
+    state: domain
+  register: domain_state
+
+- name: Reboot Server if required
+  win_reboot:
+  ignore_errors: true
+  when: domain_state.reboot_required
