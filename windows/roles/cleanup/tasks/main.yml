@@ -1,0 +1,7 @@
+- name: Power off VM
+  vmware_guest:
+    name: "{{ inventory_hostname }}"
+    state: absent
+    force: yes
+    validate_certs: False
+  delegate_to: localhost
