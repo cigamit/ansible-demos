@@ -1,0 +1,25 @@
+---
+
+- name: Install required DSC module
+  win_psmodule:
+    name: SqlServerDsc
+    state: present
+
+
+- name: install SQL 2019
+  win_dsc:
+    resource_name: SqlSetup
+    InstanceName: MSSQLServer
+    SourcePath: '{{ disk_image_out.mount_path }}'
+    Features: SQLENGINE
+    InstallSharedDir: 'C:\Program Files\Microsoft SQL Server'
+    SQLSysAdminAccounts:
+      - '{{ mssql_username }}'
+    SQLSvcAccount_username: '{{ mssql_username }}'
+    SQLSvcAccount_password: '{{ mssql_password }}'
+    AgtSvcAccount_username: '{{ mssql_username }}'
+    AgtSvcAccount_password: '{{ mssql_password }}'
+    SecurityMode: SQL
+    SAPwd_username: sa
+    SAPwd_password: '{{ mssql_password }}'
+  register: sql_install
