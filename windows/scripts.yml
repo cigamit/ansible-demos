@@ -1,4 +1,4 @@
-- name: Install IIS
+- name: Run some scripts
   hosts: all
   roles:
     - scripts
