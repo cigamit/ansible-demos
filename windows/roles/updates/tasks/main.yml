@@ -10,6 +10,7 @@
     description: Snapshot before doing updates
   delegate_to: localhost
 
+
 - block:
     - name: Install Updates
       win_updates:
@@ -28,6 +29,15 @@
         snapshot_name: Updates
         state: revert
       delegate_to: localhost
+
+    - name: Wait for server to come back up
+      wait_for:
+        host: "{{ ansible_host | default(inventory_hostname) }}"
+        port: "{{ ansible_port }}"
+        delay: 30
+        timeout: 600
+      delegate_to: localhost
+
 
 - name: Remove VMWare snapshot
   vmware_guest_snapshot:

@@ -45,8 +45,8 @@
 - name: Wait for SysPrep to complete
   wait_for:
     host: "{{ ansible_host | default(inventory_hostname) }}"
-    port: 5986
-    delay: 120
+    port: "{{ ansible_port }}"
+    delay: 60
     timeout: 600
   when: newvm.changed
   delegate_to: localhost

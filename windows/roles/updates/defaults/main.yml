@@ -1,0 +1,4 @@
+reboot_server: Yes
+categories:
+  - CriticalUpdates
+  - SecurityUpdates
