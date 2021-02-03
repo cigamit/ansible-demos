@@ -22,8 +22,8 @@
   rescue:
     - name: Revert the VMWare snapshot
       vmware_guest_snapshot:
-        datacenter: {{ 
-        folder: /MNS/vm/POC/Demo
+        datacenter: "{{ vCenterDatacenter }}"
+        folder: "{{ vCenterFolder }}"
         name: "{{ inventory_hostname }}"
         snapshot_name: Updates
         state: revert
