@@ -43,6 +43,7 @@
 - name: Add HTTPS Webbinding to IIS
   win_iis_webbinding:
     name: Default Web Site
+    port: 80
     protocol: https
     certificate_hash: "{{ csr.stdout | trim }}"
     state: present

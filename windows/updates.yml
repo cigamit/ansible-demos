@@ -1,0 +1,6 @@
+- name: Install Windows Updates
+  hosts: all
+
+  roles:
+    - updates
+    - health_check

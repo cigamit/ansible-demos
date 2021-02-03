@@ -1,0 +1,6 @@
+- name: Checking Services
+  win_service:
+    name: "{{ item.service }}"
+    state: started
+    start_mode: auto
+  loop: "{{ services }}"

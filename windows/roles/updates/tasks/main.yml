@@ -1,0 +1,40 @@
+---
+- name: Create VMWare snapshot
+  vmware_guest_snapshot:
+    datacenter: "{{ vCenterDatacenter }}"
+    folder: "{{ vCenterFolder }}"
+    name: "{{ inventory_hostname }}"
+    state: present
+    memory_dump: yes
+    snapshot_name: Updates
+    description: Snapshot before doing updates
+  delegate_to: localhost
+
+- block:
+    - name: Install Updates
+      win_updates:
+        category_names: "{{ categories }}"
+        reboot: "{{ reboot_server }}"
+        reboot_timeout: 3600
+        state: searched
+      register: update_result
+
+  rescue:
+    - name: Revert the VMWare snapshot
+      vmware_guest_snapshot:
+        datacenter: {{ 
+        folder: /MNS/vm/POC/Demo
+        name: "{{ inventory_hostname }}"
+        snapshot_name: Updates
+        state: revert
+      delegate_to: localhost
+
+- name: Remove VMWare snapshot
+  vmware_guest_snapshot:
+    datacenter: "{{ vCenterDatacenter }}"
+    folder: "{{ vCenterFolder }}"
+    name: "{{ inventory_hostname }}"
+    snapshot_name: Updates
+    state: absent
+  delegate_to: localhost
+
