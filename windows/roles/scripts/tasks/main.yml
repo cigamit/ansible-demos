@@ -1,0 +1,14 @@
+---
+- name: Copy Test1 Script to Server
+  win_copy:
+    src: files/test1.ps1
+    dest: c:\test1.ps1
+
+- name: Execute Test1 Script
+  win_shell: powershell.exe -ExecutionPolicy Unrestricted -File c:\test1.ps1
+
+- name: Copy and Execute Test2 Script
+  script: files/test2.ps1
+
+- name: Run Powershell commands directly
+  win_shell: Write-Host "Hello, Test3 !"
