@@ -3,4 +3,4 @@
 
   roles:
     - updates
-    - health_check
+#    - health_check
