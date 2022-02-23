@@ -36,8 +36,6 @@
       runonce:
       - powershell.exe -command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile C:\ConfigureRemotingForAnsible.ps1"
       - powershell.exe -ExecutionPolicy Unrestricted -File C:\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
-      - winrm set winrm/config/service/auth @{Basic="true"}
-      - winrm set winrm/config/service @{AllowUnencrypted="true"}
   register: newvm
   delegate_to: localhost
 
@@ -47,7 +45,7 @@
     host: "{{ ansible_host | default(inventory_hostname) }}"
     port: "{{ ansible_port }}"
     delay: 60
-    timeout: 600
+    timeout: 900
   when: newvm.changed
   delegate_to: localhost
 
