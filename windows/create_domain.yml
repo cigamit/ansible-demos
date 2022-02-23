@@ -1,4 +1,4 @@
 - name: Create Domain
-  hosts: DC
+  hosts: DomainController
   roles:
     - windows-ad-controller
