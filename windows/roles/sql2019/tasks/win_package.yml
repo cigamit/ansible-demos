@@ -20,3 +20,4 @@
       - /SQLUSERDBDIR=C:\Databases
       - /SQLUSERDBLOGDIR=C:\UserDatabases
   register: sql_install
+  retries: 1
