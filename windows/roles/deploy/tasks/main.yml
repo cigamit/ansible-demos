@@ -24,6 +24,7 @@
       num_cpus: "{{ vm_sizes[vmsize].cpu }}"
     customization:
       autologon: True
+      autologoncount: 1
       orgname: POC-DEMO
       fullname: POC-DEMO
       # timezone 20 = Central Standard Time
