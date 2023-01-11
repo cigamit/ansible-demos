@@ -1,6 +1,6 @@
 - name: Install SQL 2019
   hosts: all
   vars:
-    install_with: ini
+    install_with: win_package
   roles:
     - sql2019
